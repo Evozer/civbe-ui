@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context>
+  <LuaContext FileName="Assets/UI/InGame/TechPopup" ID="TechPopup" Hidden="1" />
+
+
+
+  <!--=======================================================================================================================-->
+  <!--   Currently Researching   -->
+  <!--=======================================================================================================================-->
+  <GridButton Anchor="L,T" Offset="0,30" Size="380,71" StateOffsetIncrement="0,0" Style="TechCorner" ID="ActiveStyle" Hidden="0">
+    <Stack Anchor="L,T" Offset="60,34"   Size="32,32" StackGrowth="Right" Padding="-8">
+      <Button Anchor="C,C" Style="Button64" ID="B1_back">
+        <Button NoStateChange="1" Anchor="C,C" Size="64,64"  ID="B1"/>
+      </Button>
+
+      <Button Anchor="C,C" Style="Button64" ID="B2_back">
+        <Button NoStateChange="1" Anchor="C,C" Size="64,64"  ID="B2"/>
+      </Button>
+
+      <Button Anchor="C,C" Style="Button64" ID="B3_back">
+        <Button NoStateChange="1" Anchor="C,C" Size="64,64"  ID="B3"/>
+      </Button>
+
+      <Button Anchor="C,C" Style="Button64" ID="B4_back">
+        <Button NoStateChange="1" Anchor="C,C" Size="64,64"  ID="B4"/>
+      </Button>
+
+      <Button Anchor="C,C" Style="Button64" ID="B5_back">
+        <Button NoStateChange="1" Anchor="C,C" Size="64,64"  ID="B5"/>
+      </Button>
+    </Stack>
+  <!--=======================================================================================================================-->
+  <!--    Change Close Button  -->
+  <!--=======================================================================================================================-->
+
+  <Label Anchor="L,T" Offset="70,10" Style="FontNormal20" ID="TechText" Color0="33,190,247,255" Color1="33,190,247,100" FontStyle="Glow" />
+  <Label Anchor="L,T"  Offset="70,10" Style="FontNormal20" ID="FinishedTechText" Color0="33,190,247,255" Color1="33,190,247,100" FontStyle="Glow" Hidden="1"/>
+  <!--=======================================================================================================================-->
+  <!--    Image Frame and Meters (Regular and Energy) -->
+  <!--=======================================================================================================================-->
+  <Button Anchor="L,T" Offset="2,0" NoStateChange="1" Size="64,64" ID="BigTechButton" >
+    <!--The tech image-->
+    <Image Anchor="C,C" Offset="-1,1"  Color="78,183,255" Texture="TechnologyAtlas512.dds" Size="64,64" ID="TechIcon"/>
+  </Button>
+
+  
+  <Image StretchMode="None" Anchor="L,T"  Texture="assets/UI/Art/WorldView/TechProgressBacking.dds" Size="230,7"  Hidden="0" Offset="62,30">
+    <Image StretchMode="None" Anchor="L,C"  Offset="7,0"  Texture="assets/UI/Art/WorldView/TechProgressFill_dark.dds" Size="213,7" ID="TechProgressThisTurn"/>
+    <Image StretchMode="None" Anchor="L,C"  Offset="7,0"  Texture="assets/UI/Art/WorldView/TechProgressFill.dds" Size="213,7" ID="TechProgress"/>
+  </Image>
+
+  </GridButton>
+</Context>

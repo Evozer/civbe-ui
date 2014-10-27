@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context Colorset="Gray_Black_Alpha" Style="FontNormal16" FontStyle="Shadow" Layer="Modal">
+
+	<!-- Dark screen and stop input from leaking around edges of dialog -->
+	<Box Size="full,full" Anchor="C,C" Color="0,0,0,100" ConsumeMouse="1" />
+
+	<Grid Size="1038, 700"					Anchor="C,C" Offset="0,0"	Style="GridWindowWithHeader" ConsumeMouse="1">
+		<Button	ID="CloseButton"			Anchor="R,T" Offset="7,7"	Style="CloseButton"/>
+		<Label								Anchor="L,T" Offset="16,17"	Style="MenuTitleCaption"	String="{TXT_KEY_UNIT_UPGRADE_TITLE:upper}" />
+
+		<Container										Size="parent-15,632"	Offset="7,48"	>
+			<Box										Size="255,parent"		Offset="0,0"	Color="0,0,0,255">
+				<!-- <Grid									Size="252,225"			Offset="0,0"	Style="GridGradientBlue"> -->
+				<Box									Size="252,225"			Offset="0,0"	Color="0,0,0,255">
+					<Button	ID="UnitPreview"			Size="parent-2,parent-2" Offset="0,0"	Color="255,255,255,255" NoStateChange="1" />
+				</Box>
+
+				<Grid									Size="252,parent-225"	Offset="0,225"	Style="GridGradientBlue" />
+				<Box									Size="2,Parent-2"		Offset="1,1"	Color="Separator" Anchor="R,T" />
+
+				<!-- Select which unit to show -->
+				<PullDown	ID="UnitSelectionPullDown"	Size="252,36"	Offset="0,225" ScrollThreshold="360" SpaceForScroll="0" AutoSizePopUp="1">
+					<ButtonData>
+						<GridButton Style="BaseButton" WrapWidth="200" LeadingOffset="-4" Anchor="L,C" TextAnchor="L,C" TextOffset="5,0">
+							<Image						Texture="Assets/UI/Art/Controls/9 Grids/Corner16.dds" TextureOffset="0,0"	Offset="3,5"  Size="24,17" Anchor="R,B"  />
+							<Image  ShowOnMouseOver="1"	Texture="Assets/UI/Art/Controls/9 Grids/Corner16.dds" TextureOffset="0,17"	Offset="3,5"  Size="24,17" Anchor="R,B"  />
+						</GridButton>
+					</ButtonData>
+					<GridData Anchor="C,B" Offset="0,-2" AnchorSide="I,O" Style="Grid9Frame27SquareBlack" Padding="5,5" />
+					<ScrollPanelData Anchor="C,C"  Vertical="1" Size="16,16"  AutoScrollBar="1" >
+						<ScrollBar  Style="VertSlider" Anchor="R,C" Offset="6,0" AnchorSide="O,I"   />
+					</ScrollPanelData>
+					<StackData StackGrowth="Bottom" Padding="0" Anchor="C,T" />
+					<InstanceData Name="UnitUpgradePulldownInstance" >
+						<GridButton	ID="Button"	Anchor="C,C"	Size="200,24"	Style="ZoomButton"   />
+						<Label		ID="Label"	Anchor="L,T"	Offset="0,4"	Style="MenuTitleCaption" />
+					</InstanceData>
+				</PullDown>
+
+
+				<Stack StackGrowth="Bottom"	Offset="2,270">
+
+					<!-- Unit Info -->
+					<Label												Anchor="L,T" Offset="2,0" Style="StatPerkHeaderText" String="{TXT_KEY_UNIT_UPGRADE_STATS:upper}" WrapWidth="250"/>
+
+					<!-- Unit Stats -->
+					<Stack												Anchor="C,C" Offset="0,0" Padding="0" Size="0,0" StackGrowth="Bottom">
+						<Container		ID="UnitMovementBox"			Anchor="R,C" Offset="0,0"	Size="Parent,25" Padding="0,0" Color="0,0,0,0" >
+							<TextButton ID="UnitStatMovement"			Anchor="R,C" Offset="10,-2" String="000" Style="FontNormal20" Color="162,179,204,255" ToolTip="TXT_KEY_UPANEL_MOVEMENT_TT"/>
+						</Container>
+						<Container		ID="UnitStrengthBox"			Anchor="R,C" Offset="0,0"	Size="Parent,25" Padding="0,0" Color="0,0,0,0">
+							<TextButton ID="UnitStatStrength"			Anchor="R,C" Offset="10,-2"	String="000" Style="FontNormal20" Color="162,179,204,255" ToolTip="TXT_KEY_UPANEL_STRENGTH_TT" />
+						</Container>
+						<Container		ID="UnitRangedAttackBox"		Anchor="R,C" Offset="0,0"	Size="Parent,25" Padding="0,0" Color="0,0,0,0" >
+							<TextButton ID="UnitStatRangedAttack"		Anchor="R,C" Offset="10,-2" String="000" Style="FontNormal20" Color="162,179,204,255" ToolTip="TXT_KEY_UPANEL_RANGED_ATTACK_TT" />
+						</Container>
+					</Stack>
+
+					<!-- Special Abilities / Buff-->
+					<Label					Offset="0,15" Anchor="L,T" Style="StatPerkHeaderText" String="{TXT_KEY_UNIT_UPGRADE_BUFFS:upper}" WrapWidth="250"/>
+					<Stack ID="BuffStack"	Offset="0,10" />
+
+				</Stack>
+
+			</Box>
+
+			<Image Anchor="R,T" Texture="Assets/UI/Art/UnitUpgrade/UnitUpgradeBackground.dds" />
+
+			<ScrollPanel	ID="UpgradeTiersScrollPanel"	Anchor="R,T" Size="parent-254,parent+5" Vertical="1" ConsumeMouse="1" >
+				<Stack		ID="UpgradeTiersStack"			Anchor="L,T" StackGrowth="Bottom" Padding="8" />
+				<ScrollBar	ID="UnitSelectionScrollBar"		Anchor="R,C" Offset="-16,0" Style="VertSlider" AnchorSide="O,I" Length="Parent" />
+			</ScrollPanel>
+
+
+			<!-- Confirmation Popup -->
+			<Box					ID="ConfirmationPopup"			Anchor="R,T" Size="parent-255,parent" Color="0,0,0,200" ConsumeMouse="1" Hidden="1">
+				<Grid Size="560, 480"					Anchor="C,C" Offset="0,0"	Style="Grid9DetailFive140" ConsumeMouse="1" ID="Window" >
+					<Grid Anchor="C,T" Size="parent,45" Offset="0,3" Style="ProductionListHeaderGrid" ID="WindowHeader">
+						<Label Style="GrayGlow24" Anchor="C,C" Offset="0,-3" String="UPGRADE CONFIRMATION TITLE" WrapWidth="500" ID="ConfirmationTitleLabel" />
+						<Grid Style="TabSpacer" Size="parent,5" Offset="0,3" Anchor="L,B" ID="HeaderSeparator"/>
+					</Grid>
+					<Stack Anchor="C,T" Offset="0,64" Size="0,0" StackGrowth="Bottom" Padding="15" ID="ContentStack">
+						<Label ID="UpgradeDescriptionLabel"	Anchor="C,T" WrapWidth="340" Style="WhiteShadow" String="UPGRADE DESCRIPTION LABEL" />
+						<Label Anchor="C,T" Style="MenuTitleCaption" WrapWidth="340" Offset="-5,0" Color="174,186,199,255" String="{TXT_KEY_UNIT_UPGRADE_CHOOSE_PERK:upper}"/>
+						<Stack ID="ConfirmationPerksStack"	Offset="10,0"	Anchor="C,T" Padding="40" StackGrowth="Right" />
+						<Label ID="PerkDescriptionLabel"	Anchor="C,T" WrapWidth="420" Style="WhiteShadow" String="PERK DESCRIPTION LABEL" />
+						<Stack Anchor="C,B" StackGrowth="Right">
+							<GridButton ID="UpgradeCancelButton"		Anchor="L,T" Offset="0,0" Style="BaseButton" Size="150,40" String="{TXT_KEY_UNIT_UPGRADE_CANCEL:upper}"  />
+							<Container Size="12,1" Color="0,0,0,0"/>
+							<GridButton ID="UpgradeIgnoreButton"		Anchor="L,T" Offset="0,0" Style="BaseButton" Size="150,40" String="{TXT_KEY_UNIT_UPGRADE_IGNORE:upper}" ToolTip="TXT_KEY_UNIT_UPGRADE_IGNORE_DETAILS" />
+							<Container Size="12,1" Color="0,0,0,0"/>
+							<GridButton ID="UpgradeConfirmButton"		Anchor="L,T" Offset="0,0" Style="BaseButton" Size="150,40" String="{TXT_KEY_UNIT_UPGRADE_CONFIRM:upper}" ToolTip="TXT_KEY_UNIT_UPGRADE_CONFIRM_DETAILS" />
+						</Stack>
+					</Stack>
+				</Grid>
+			</Box>
+
+
+		</Container>
+	</Grid>
+
+
+	<!-- SPACE in stack -->
+	<Instance Name="StackSpaceInstance">
+		<Container ID="Space" Size="10,10" />
+	</Instance>
+
+	<!-- Buff Entry Instance -->
+	<Instance Name="BuffEntryInstance">
+		<Label ID="Label" Anchor="L,C"  Offset="0,0" WrapWidth="250" String="$Confirm$" Style="FontNormal18" ColorSet="Gray_Black_Alpha" FontStyle="Shadow" />
+	</Instance>
+
+	<!-- ROW: Upgrade Tier Instance -->
+	<Instance Name="UpgradeTierInstance">
+		<Container Size="770,145">
+			<Stack	ID="UpgradesStack"	Anchor="C,C" StackGrowth="Right" Vertical="0" Padding="8" />
+		</Container>
+	</Instance>
+
+	<!-- CELL: Upgrade Instance -->
+	<Instance Name="UpgradeInstance">
+		<Grid			ID="Top"											Size="245,145" Style="CardPanelNonActiveGrid">
+			<Grid		ID="Highlight"										Size="Parent,Parent" Style="CardPanelActiveGrid" />
+			<Image		ID="Portrait"			Anchor="L,B" Offset="0,0"	Size="127,127" Texture="Assets/UI/Art/UnitUpgradesFPO.dds" />
+			<Label		ID="NameLabel"			Anchor="L,T" Offset="2,4"	Style="FontNormal20" Color="162,179,204,255" String="UPGRADE NAME HERE" />
+			<Stack		ID="PerksStack"			Anchor="R,B" Offset="0,2"	StackGrowth="Right" Padding="4" />
+			<Stack								Offset="4,4" Anchor="R,T">
+				<Label	ID="AnyAffinityLabel"	Style="FontNormal22" String="3"					FontStyle="Glow"	Color0="255,255,255,255"	Color1="255,255,255,255"  />
+				<Label	ID="HarmonyLabel"		Style="FontNormal22" String="[ICON_HARMONY]3"	FontStyle="Glow"	Color0="Harmony"			Color1="Harmony"	 />
+				<Label	ID="PurityLabel"		Style="FontNormal22" String="[ICON_PURITY]3"	FontStyle="Glow"	Color0="Purity"				Color1="Purity"		 />
+				<Label	ID="SupremacyLabel"		Style="FontNormal22" String="[ICON_SUPREMACY]2"	FontStyle="Glow"	Color0="Supremacy"			Color1="Supremacy" />
+			</Stack>
+			<Label		ID="SelectedPerkLabel"	Anchor="L,C" Offset="125,0" Style="FontNormal16" LeadingOffset="3" WrapWidth="120" Color="162,179,204,255" String=" " />
+			<GridButton ID="Button"				Anchor="R,C" Offset="10,10" Size="140,30" Style="BaseButton" String=" " FontSize="16" />
+		</Grid>
+	</Instance>
+
+	<!-- Perk Instance -->
+	<Instance Name="PerkPreviewInstance">
+		<Button		ID="Button"		Size="32,32" >
+			<Image	ID="Portrait"	Size="32,32" Color="128,128,128,200" />
+		</Button>
+	</Instance>
+	<Instance Name="PerkPreviewSeperatorInstance">
+		<Image Texture="Assets/UI/Art/UnitUpgradePerkSeparator.dds"	Size="4,32"  />
+	</Instance>
+
+
+	<!-- Perk Instance -->
+	<Instance Name="PerkInstance">
+		<Container Size="90,90">
+			<CheckBox	ID="Button"		Size="18,18"  Style="UnitUpgradesCheckBox" Anchor="R,B" />
+			<Button		ID="Portrait"	Size="64,64" Anchor="C,C" NoStateChange="1" />
+		</Container>
+	</Instance>
+
+</Context>

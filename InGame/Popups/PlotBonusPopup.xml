@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Anton Strenger (Firaxis Games) -->
+<Context Layer="Modal">
+  <Box Style="BGBlock_ClearTopBar" />
+  <Grid Size="500,325" Anchor="C,C" Offset="0,0"  Style="Grid9DetailFive140">
+    
+	<Label Anchor="C,T" Offset="0,15" Style="FontNormal20" FontStyle="Shadow" Color="CoolGray" ID="TitleLabel"/>
+    <Box Size="450,190" Anchor="C,T" Offset="0,60"  Color="255,255,255,0" >
+      <Label ID="DetailsLabel" Anchor="L,T" Offset="10,10" WrapWidth="450" LeadingOffset="4"  Style="FontNormal18" FontStyle="Shadow" ColorSet="Beige_Black_Alpha"/>
+    </Box>
+    <GridButton ID="CloseButton" Size="200,36" Anchor="C,B" Style="BaseButton" Offset="0,10" >
+      <Label Anchor="C,C"  Offset="0,0"  String="TXT_KEY_CLOSE" Style="FontNormal22" ColorSet="Beige_Black_Alpha" FontStyle="Shadow"  />
+    </GridButton>
+  </Grid>
+</Context>

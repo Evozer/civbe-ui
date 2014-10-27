@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Context Layer="Modal" >
+	
+	<Box Style="BGBlock_ClearTopBar"/>
+	
+	<Grid			ID="Popup"			Anchor="C,C" Offset="0,-30"	Size="500,400"	Style="Grid9DetailFive140" >
+		<Label		ID="TitleText"		Anchor="C,T" Offset="0,12"					String="TXT_KEY_QUEST_COMPLETE_POPUP_TITLE" Style="QuestPopupText"  />
+		<Stack		ID="TextStack"		Anchor="C,T" Offset="0,50" Padding="20">
+			<Label	ID="CompletedText"	Anchor="C,T" String="QuestPopupHeaderText"	Style="QuestPopupHeaderText"	WrapWidth="460" WrapGrowth="Bottom" />
+			<Label	ID="EpilogueText"	Anchor="C,T" String="Epilogue"				Style="QuestPopupEpilogueText"	WrapWidth="460" WrapGrowth="Bottom" />
+			<Label	ID="RewardHeader"	Anchor="C,T" String="Reward"				Style="QuestPopupHeaderText"	WrapWidth="460" WrapGrowth="Bottom" />
+			<Stack  ID="RewardsStack"	Anchor="C,T" Padding="10" />
+		</Stack>
+		
+		<Button		ID="CloseButton"		Anchor="R,T" Offset="0,6"					Style="CloseButton" ConsumeMouse="1" Hidden="1" />		
+		<GridButton ID="ConfirmButton"		Anchor="C,B" Offset="0,20"	Size="220,36"	Style="BaseButton" >
+			<Label	ID="ConfirmButtonText"	Anchor="C,C" Offset="0,0"	String="TXT_KEY_OK_BUTTON" ColorSet="Beige_Black" Style="FontNormal22" FontStyle="Shadow" />
+		</GridButton>		
+	</Grid>
+	
+	<!-- Reward Entry -->
+	<Instance					Name="RewardInstance">
+		<Container ID="Content"					Offset="0,0"	Size="565,24">
+			<Label ID="Reward"	Anchor="C,C"	Offset="0,0"	Style="QuestPopupRewardText" WrapWidth="460" />
+		</Container>		
+	</Instance>
+	
+</Context>
