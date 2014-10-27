@@ -14,15 +14,8 @@ local fTime = 0;
 function ShowHideHandler( bIsHide, bIsInit )
     if( not bIsHide ) then
         Controls.CivBELogo:SetTexture( "CivilizationBE_Logo.dds" );
-		for animControl=1,7 do
-			Controls[animControl.."Slide"]:SetToBeginning();
-			Controls[animControl.."Alpha"]:SetToBeginning();
-			Controls[animControl.."Slide"]:Play();
-			Controls[animControl.."Alpha"]:Play();
-			Events.AudioPlay2DSound("AS2D_INTERFACE_MENU_ITEM_SLIDE_6");
-		end
-		Controls.ButtonsFadeIn:SetToBeginning();
-		Controls.ButtonsFadeIn:Play();
+		Controls.ButtonsFadeIn:SetToEnd();
+		
         Controls.MainMenuScreenUI:SetHide( false );
     else
         Controls.CivBELogo:UnloadTexture();

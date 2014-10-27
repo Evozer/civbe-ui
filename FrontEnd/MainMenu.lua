@@ -10,7 +10,7 @@ local bHideUITest			= true;
 local bHideLoadGame			= true;
 local bHidePreGame			= true;
 local m_animControls		= {"SinglePlayer","MultiPlayer","Mods","Options","Other","Exit"};
-local m_isFirstShow			= true;
+local m_isFirstShow			= false;
 
 
 -- ===========================================================================
@@ -52,26 +52,13 @@ function Initialize()
 	end
 	Controls.ButtonsFadeIn:Stop();
 
-	m_isFirstShow = true;
+	m_isFirstShow = false;
 end
 
 
 -- ===========================================================================
 function StartAnimating()
-
-	m_isFirstShow = false;
-	
-	local animControl;    
-	for _,animControl in pairs(m_animControls) do
-		Controls[animControl.."Slide"]:SetToBeginning();
-		Controls[animControl.."Alpha"]:SetToBeginning();
-		Controls[animControl.."Slide"]:Play();
-		Controls[animControl.."Alpha"]:Play();
-		Events.AudioPlay2DSound("AS2D_INTERFACE_MENU_ITEM_SLIDE_6");
-	end
-	
-	Controls.ButtonsFadeIn:SetToBeginning();	
-	Controls.ButtonsFadeIn:Play();
+	Controls.ButtonsFadeIn:SetToEnd();
 end
 
 

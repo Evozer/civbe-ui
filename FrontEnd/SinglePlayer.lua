@@ -43,15 +43,8 @@ function ShowHideHandler( bIsHide, bIsInit )
 		ResetGameOption();	
 		    
         Controls.CivBELogo:SetTexture( "CivilizationBE_Logo.dds" );
-        for _,animControl in pairs(animControls) do
-			Controls[animControl.."Slide"]:SetToBeginning();
-			Controls[animControl.."Alpha"]:SetToBeginning();
-			Controls[animControl.."Slide"]:Play();
-			Controls[animControl.."Alpha"]:Play();
-			Events.AudioPlay2DSound("AS2D_INTERFACE_MENU_ITEM_SLIDE_4");
-		end
-		Controls.ButtonsFadeIn:SetToBeginning();
-		Controls.ButtonsFadeIn:Play();
+		Controls.ButtonsFadeIn:SetToEnd();
+		
         local str = Locale.ConvertTextKey( "TXT_KEY_PLAY_NOW_SETTINGS" ) .. "[NEWLINE]";
 		      
         local civIndex = PreGame.GetCivilization( 0 );
