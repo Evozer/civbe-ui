@@ -153,7 +153,18 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 			print("ERROR: Missing infinity texture for affinity '"..tostring(affinityType).."', on tech "..thisTechButtonInstance.tech.Description);
 		end
 	end		
-
+	
+	--0xAABBGGRR
+	local unitColor = 0xaa5050ff; -- Units, eg. ranger
+	local orbitalColor = 0xaaff5050; -- Satellites, eg. tacnet hub
+	local buildingColor = 0xaa50ff50; -- Buildings, eg. trade depot
+	local wonderColor = 0xaaff50ff; -- Wonders, eg. panopticon
+	--local resourceColor = 0xaa00ff00; -- Resources, eg. show petroleum
+	local projectColor = 0xaaff80ff; -- Projects, eg. exodus gate
+	--local improvementColor = 0xaaff0000; -- Improvements, eg. terrascape
+	--local perkColor = 0xaaff5050; -- Passive perks, eg. food carries over
+	--local yieldColor = 0xaaff5050; -- Improvement yields, eg. +1 food from farms
+	--local unitAbilityColor = 0xaaff5050; -- Unit abilities, eg. embark and heal
 
 	-- add the stuff granted by this tech here --
 
@@ -163,6 +174,11 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 			local buttonName = "B"..tostring(buttonNum);
 			local thisButton = thisTechButtonInstance[buttonName];
 			if thisButton then
+				if(thisUnitInfo.Orbital == nil) then
+					thisButton:SetColor(unitColor);
+				else
+					thisButton:SetColor(orbitalColor);
+				end
 				AdjustArtOnGrantedUnitButton( thisButton, thisUnitInfo, textureSize );
 				table.insert( g_recentlyAddedUnlocks, thisUnitInfo.Description );
 				buttonNum = buttonNum + 1;
@@ -176,6 +192,11 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 			local buttonName = "B"..tostring(buttonNum);
 			local thisButton = thisTechButtonInstance[buttonName];
 			if thisButton then
+				if GameInfo.BuildingClasses[thisBuildingInfo.BuildingClass].MaxGlobalInstances == 1 then
+					thisButton:SetColor(wonderColor);
+				else
+					thisButton:SetColor(buildingColor);
+				end
 				AdjustArtOnGrantedBuildingButton( thisButton, thisBuildingInfo, textureSize );
 				table.insert( g_recentlyAddedUnlocks, thisBuildingInfo.Description );
 				buttonNum = buttonNum + 1;
@@ -188,6 +209,7 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 		local buttonName = "B"..tostring(buttonNum);
 		local thisButton = thisTechButtonInstance[buttonName];
 		if thisButton then
+			--thisButton:SetColor(resourceColor);
 			AdjustArtOnGrantedResourceButton( thisButton, thisResourceInfo, textureSize );
 			table.insert( g_recentlyAddedUnlocks, thisResourceInfo.Description );
 			buttonNum = buttonNum + 1;
@@ -199,6 +221,7 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 		local buttonName = "B"..tostring(buttonNum);
 		local thisButton = thisTechButtonInstance[buttonName];
  		if thisButton then
+			thisButton:SetColor(projectColor);
 			AdjustArtOnGrantedProjectButton( thisButton, thisProjectInfo, textureSize );
 			table.insert( g_recentlyAddedUnlocks, thisProjectInfo.Description );
  			buttonNum = buttonNum + 1;
@@ -213,6 +236,7 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 				local buttonName = "B"..tostring(buttonNum);
 				local thisButton = thisTechButtonInstance[buttonName];
 				if thisButton then
+					--thisButton:SetColor(improvementColor);
 					AdjustArtOnGrantedImprovementButton( thisButton, GameInfo.Improvements[thisBuildInfo.ImprovementType], textureSize );
 					table.insert( g_recentlyAddedUnlocks, thisBuildInfo.Description );
 					buttonNum = buttonNum + 1;
@@ -257,6 +281,7 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 			local buttonName = "B"..tostring(buttonNum);
 			local thisButton = thisTechButtonInstance[buttonName];
 			if thisButton then
+				--thisButton:SetColor(perkColor);
 				AdjustArtOnGrantedPlayerPerkButton( thisButton, thisPerkInfo, textureSize );				
 				local perkInfo = GameInfo.PlayerPerks[thisPerkInfo.ID];
 				local description =  GetHelpTextForPlayerPerk(thisPerkInfo.ID, true);
@@ -314,6 +339,7 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 			table.sort(v[2], function(a,b) return Locale.Compare(a,b) == -1 end);
 		
 			IconHookup( 0, textureSize, "GENERIC_FUNC_ATLAS", thisButton );
+			--thisButton:SetColor(yieldColor);
 			thisButton:SetHide( false );
 			thisButton:SetToolTipString(table.concat(v[2], "[NEWLINE]"));
 			techPediaSearchStrings[tostring(thisButton)] = tech.Description;
@@ -363,6 +389,7 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 		local thisButton = thisTechButtonInstance[buttonName];
 		if thisButton then
 			IconHookup( 0, textureSize, "GENERIC_FUNC_ATLAS", thisButton );
+			--thisButton:SetColor(unitAbilityColor);
 			thisButton:SetHide( false );
 			thisButton:SetToolTipString( Locale.ConvertTextKey( "TXT_KEY_FASTER_EMBARKED_MOVEMENT" ) );
 			techPediaSearchStrings[tostring(thisButton)] = tech.Description;
@@ -378,6 +405,7 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 		local thisButton = thisTechButtonInstance[buttonName];
 		if thisButton then
 			IconHookup( 0, textureSize, "GENERIC_FUNC_ATLAS", thisButton );
+			--thisButton:SetColor(unitAbilityColor);
 			thisButton:SetHide( false );
 			thisButton:SetToolTipString( Locale.ConvertTextKey( "TXT_KEY_ALLOWS_EMBARKING" ) );
 			techPediaSearchStrings[tostring(thisButton)] = tech.Description;
@@ -393,6 +421,7 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 		local thisButton = thisTechButtonInstance[buttonName];
 		if thisButton then
 			IconHookup( 0, textureSize, "GENERIC_FUNC_ATLAS", thisButton );
+			--thisButton:SetColor(unitAbilityColor);
 			thisButton:SetHide( false );
 			local description = Locale.ConvertTextKey( "TXT_KEY_UNIT_FORTIFICATION_MOD", tech.UnitFortificationModifier );
 			thisButton:SetToolTipString( description );
@@ -409,6 +438,7 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 		local thisButton = thisTechButtonInstance[buttonName];
 		if thisButton then
 			IconHookup( 0, textureSize, "GENERIC_FUNC_ATLAS", thisButton );
+			--thisButton:SetColor(unitAbilityColor);
 			thisButton:SetHide( false );
 			local description = Locale.ConvertTextKey( "TXT_KEY_UNIT_BASE_HEAL_MOD", tech.UnitBaseHealModifier );
 			thisButton:SetToolTipString( description );
@@ -424,6 +454,7 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 		local thisButton = thisTechButtonInstance[buttonName];
 		if thisButton then
 			IconHookup( 0, textureSize, "GENERIC_FUNC_ATLAS", thisButton );
+			--thisButton:SetColor(unitAbilityColor);
 			thisButton:SetHide( false );
 			local description = Locale.ConvertTextKey( "TXT_KEY_BASE_MIASMA_HEAL", tech.UnitBaseMiasmaHeal );
 			thisButton:SetToolTipString( description );	
@@ -493,6 +524,7 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 		if thisButton and promotion ~= nil then
 			AdjustArtOnButton( thisButton, promotion.PortraitIndex, promotion.IconAtlas, textureSize );		
 			local description = Locale.ConvertTextKey("TXT_KEY_FREE_PROMOTION_FROM_TECH", promotion.Description, promotion.Help);
+			--thisButton:SetColor(unitAbilityColor);
 			thisButton:SetToolTipString( description );
 			techPediaSearchStrings[tostring(thisButton)] = tech.Description;
 			thisButton:RegisterCallback( Mouse.eRClick, GetTechPedia );

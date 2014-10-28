@@ -1430,7 +1430,8 @@ function ShowTechState( thisTechButton, techStateString )
 		-- Leaf
 		for i=1,g_maxSmallButtons do
 			thisTechButton["B"..i]:SetHide( g_zoomLevel < 3 );
-			thisTechButton["B"..i]:SetColor( g_smallIconColors[techStateString] );
+			thisTechButton["B"..i]:SetAlpha( 0.6 );
+			--thisTechButton["B"..i]:SetColor( g_smallIconColors[techStateString] );
 		end	
 
 		thisTechButton.Tear 		:SetTextureOffsetVal ( g_textureBgLeaf[techStateString].u, g_textureBgLeaf[techStateString].v );
@@ -1462,7 +1463,13 @@ function ShowTechState( thisTechButton, techStateString )
 
 		for i=1,g_maxSmallButtons do
 			thisTechButton["B"..i]:SetHide( g_zoomLevel < 2 );
-			thisTechButton["B"..i]:SetColor( g_smallIconColors[techStateString] );
+			--thisTechButton["B"..i]:SetColor( g_smallIconColors[techStateString] );
+			if techStateString == "AlreadyResearched" or techStateString == "CurrentlyResearching" then
+				thisTechButton["B"..i]:SetAlpha( 1.0 );
+			else
+				thisTechButton["B"..i]:SetAlpha( 0.6 );
+			end
+			
 		end	
 
 		thisTechButton.Tear 		:SetTextureOffsetVal ( g_textureBgFull[techStateString].u, g_textureBgFull[techStateString].v );
