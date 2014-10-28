@@ -17,7 +17,7 @@ local m_showTechIDsDebug				= false;		-- Debug: Show technology IDs in their nam
 local m_forceNodesNum					= -1; 		-- Debug: Force only this many nodes on the tree
 local isLookLikeWindows95				= false;	-- Miss windows 95? Turn this on.
 local isHasLineSparkles					= false;	-- Faint Sparkles along ALL lines
-local isHasLineSparklesAvailable		= true;		-- Same as above but for available lines only.
+local isHasLineSparklesAvailable		= false;		-- Same as above but for available lines only.
 local m_bUseMiniMapIfPresent			= true;		-- Connect to minimap (if it exists in XML)
 
 
@@ -147,8 +147,8 @@ local g_zoomWebStart		= 0;					-- What the value is of the tech web when startin
 local g_zoomWebEnd			= 0;					-- What the target ending value for the tech web is when zooming.
 local g_zoomStart			= 0;					-- What the drag control is using for a minimum transition from one zoom to another
 local g_zoomEnd 			= 0;
-local g_zoomCurrent 		= 1;					-- a value within the range
-local g_zoomLevelPercents  	= {0.5, 0.7, 1.0};		-- what % to zoom at each level
+local g_zoomCurrent 		= 0.9;					-- a value within the range
+local g_zoomLevelPercents  	= {0.5, 0.7, g_zoomCurrent};		-- what % to zoom at each level
 local g_zoomLevel			= 3;					-- 1, 2, or 3 
 
 local g_screenWidth			= -1;					-- screen resolution width
@@ -527,13 +527,14 @@ function OnZoomStart( dragControl, startValue, endValue, delta )
 	local oldZoomLevel = g_zoomLevel;
 
 	-- Has player been playing with the scroll wheel?
-	if delta ~= 0 then
-		if delta < 0 then
-			newZoomLevel = newZoomLevel - 2;	-- skip level 2 straight to 1
-		else
-			newZoomLevel = newZoomLevel + 2;	-- skip level 2 straight to 3
-		end
-	end
+	-- No, he hasn't
+	--if delta ~= 0 then
+	--	if delta < 0 then
+	--		newZoomLevel = newZoomLevel - 2;	-- skip level 2 straight to 1
+	--	else
+	--		newZoomLevel = newZoomLevel + 2;	-- skip level 2 straight to 3
+	--	end
+	--end
 
 	g_zoomWebStart	= g_zoomCurrent;
 	g_zoomStart 	= startValue;
