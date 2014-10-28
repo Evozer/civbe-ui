@@ -1,6 +1,13 @@
 -------------------------------------------------
 -------------------------------------------------
+Controls.ContinueButton:RegisterCallback(Mouse.eLClick, function()
+	UIManager:DequeuePopup(ContextPtr);
+end);
+
+
 function ShowHideHandler( bIsHide, bIsInit )
-    UIManager:DequeuePopup(ContextPtr);
+	if not bIsHide then
+		UIManager:DequeuePopup(ContextPtr);
+	end
 end
 ContextPtr:SetShowHideHandler( ShowHideHandler );
