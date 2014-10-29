@@ -124,7 +124,7 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 			if thisTechButtonInstance.affinityTypes == nil then
 				thisTechButtonInstance.affinityTypes = {};
 			end
-			table.insert( affinities, affinityType );						
+			table.insert( affinities, affinityType );
 		end
 	end
 
@@ -165,8 +165,24 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 	--local perkColor = 0xaaff5050; -- Passive perks, eg. food carries over
 	--local yieldColor = 0xaaff5050; -- Improvement yields, eg. +1 food from farms
 	--local unitAbilityColor = 0xaaff5050; -- Unit abilities, eg. embark and heal
+	
+	local affinityIconSize = 0.6;
 
 	-- add the stuff granted by this tech here --
+	
+	if (CachedUnitAffinityPrereqs == nil) then
+		CachedUnitAffinityPrereqs = {};
+		for row in GameInfo.Unit_AffinityPrereqs() do
+			CachedUnitAffinityPrereqs[row.UnitType] = hmake AffinityPrereq { AffinityType = row.AffinityType, Level = row.Level };
+		end
+	end
+	
+	if (CachedBuildingAffinityPrereqs == nil) then
+		CachedBuildingAffinityPrereqs = {};
+		for row in GameInfo.Building_AffinityPrereqs() do
+			CachedBuildingAffinityPrereqs[row.BuildingType] = hmake AffinityPrereq { AffinityType = row.AffinityType, Level = row.Level };
+		end
+	end
 
   	for thisUnitInfo in GameInfo.Units(string.format("PreReqTech = '%s'", techType)) do
  		-- if this tech grants this player the ability to make this unit
@@ -178,6 +194,22 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 					thisButton:SetColor(unitColor);
 				else
 					thisButton:SetColor(orbitalColor);
+				end
+				
+				local unitAffinityPrereq = CachedUnitAffinityPrereqs[thisUnitInfo.Type];
+				if (unitAffinityPrereq ~= nil) then
+					if (unitAffinityPrereq.Level > 0) then
+						local affinityInfo = GameInfo.Affinity_Types[unitAffinityPrereq.AffinityType];
+						local textureInfo = m_textureAffinity[tostring(unitAffinityPrereq.AffinityType)];
+						local affinityIconName = "AffinityIcon"..tostring(buttonNum);
+						local affinityIcon = thisTechButtonInstance[affinityIconName];
+						if affinityIcon ~= nil then
+							affinityIcon:SetSizeVal( textureInfo.size, textureInfo.size);
+							IconHookup( textureInfo.index, textureInfo.size, textureInfo.atlas, affinityIcon );
+							affinityIcon:SetSizeVal( textureInfo.size*affinityIconSize, textureInfo.size*affinityIconSize);
+							affinityIcon:SetHide( false );
+						end
+					end
 				end
 				AdjustArtOnGrantedUnitButton( thisButton, thisUnitInfo, textureSize );
 				table.insert( g_recentlyAddedUnlocks, thisUnitInfo.Description );
@@ -196,6 +228,22 @@ function AddSmallButtonsToTechButton( thisTechButtonInstance, tech, maxSmallButt
 					thisButton:SetColor(wonderColor);
 				else
 					thisButton:SetColor(buildingColor);
+				end
+				
+				local buildingAffinityPrereq = CachedBuildingAffinityPrereqs[thisBuildingInfo.Type];
+				if (buildingAffinityPrereq ~= nil) then
+					if (buildingAffinityPrereq.Level > 0) then
+						local affinityInfo = GameInfo.Affinity_Types[buildingAffinityPrereq.AffinityType];
+						local textureInfo = m_textureAffinity[tostring(buildingAffinityPrereq.AffinityType)];
+						local affinityIconName = "AffinityIcon"..tostring(buttonNum);
+						local affinityIcon = thisTechButtonInstance[affinityIconName];
+						if affinityIcon ~= nil then
+							affinityIcon:SetSizeVal( textureInfo.size, textureInfo.size);
+							IconHookup( textureInfo.index, textureInfo.size, textureInfo.atlas, affinityIcon );
+							affinityIcon:SetSizeVal( textureInfo.size*affinityIconSize, textureInfo.size*affinityIconSize);
+							affinityIcon:SetHide( false );
+						end
+					end
 				end
 				AdjustArtOnGrantedBuildingButton( thisButton, thisBuildingInfo, textureSize );
 				table.insert( g_recentlyAddedUnlocks, thisBuildingInfo.Description );
